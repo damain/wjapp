@@ -1,34 +1,23 @@
-<template>
-  <v-list>
-    <v-flex xs12 sm5>
-      <v-text-field
+<template lang="pug">
+  v-list
+    v-flex(xs12 sm5)
+      v-text-field(
         label="Search..."
         v-model="search"
         single-line
-        prepend-icon="search"
-      ></v-text-field>
-    </v-flex>
-    <template v-for="(student, index) in students" >
-      <v-list-tile avatar  :key="index" >
-        <v-list-tile-content @click="viewDetails(student)">
-          <v-list-tile-title >{{student.studentName}}</v-list-tile-title>
-        </v-list-tile-content>
-        <v-list-tile-action @click="editStudent(student)">
-          <v-icon>edit</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-action @click="duplicateStudent(student)">
-          <v-icon>content_copy</v-icon>
-        </v-list-tile-action>
-      </v-list-tile>
-    </template>
-    <template v-if="students.length == 0">
-       <v-list-tile>
-        <v-list-tile-content >
-          <v-list-tile-title >The are no students loaded  </v-list-tile-title>
-        </v-list-tile-content>
-       </v-list-tile>
-    </template>
-  </v-list>
+        prepend-icon="search")
+    template(v-for="(student, index) in students")
+      v-list-tile(avatar  :key="index")
+        v-list-tile-content(@click="viewDetails(student)")
+          v-list-tile-title {{student.studentName}}
+        v-list-tile-action(@click="editStudent(student)")
+          v-icon edit
+        v-list-tile-action(@click="duplicateStudent(student)")
+          v-icon content_copy
+    template(v-if="students.length == 0")
+      v-list-tile
+        v-list-tile-content
+          v-list-tile-title The are no students loaded
 </template>
 <script>
 export default {

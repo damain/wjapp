@@ -5,6 +5,8 @@ import AddStudent from '@/components/AddStudent'
 import StudentList from '@/components/StudentList'
 // import EditStudent from '@/components/EditStudent'
 import StudentDash from '@/components/StudentDash'
+import AccountsDash from '@/components/AccountsDash'
+import EntryForm from '@/components/EntryForm'
 
 Vue.use(Router)
 
@@ -34,6 +36,16 @@ export default new Router({
       path: '/studentDash',
       name: 'studentDash',
       component: StudentDash
+    },
+    {
+      path: '/accountsDash',
+      name: 'accountsDash',
+      component: AccountsDash
+    },
+    {
+      path: '/entryForm',
+      name: 'entryForm',
+      component: EntryForm
     }
 
   ]

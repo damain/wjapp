@@ -1,7 +1,6 @@
 <template>
   <v-container>
-    <v-progress-linear v-if="loading"  v-bind:indeterminate="true"></v-progress-linear>
-      <v-checkbox label="Is Active" v-model="isActive" dark></v-checkbox>
+    <v-checkbox label="Is Active" v-model="isActive" dark></v-checkbox>
     <v-layout row>
       <v-flex >
         <v-text-field
@@ -24,6 +23,7 @@
     <v-layout row wrap>
       <v-flex xs11 sm5>
         <v-menu
+          ref="menu"
           lazy
           :close-on-content-click="false"
           v-model="dobOpen"
@@ -33,12 +33,14 @@
           :nudge-right="40"
           max-width="290px"
           min-width="290px"
+          :return-value-sync= "dob"
         >
           <v-text-field
             slot="activator"
             label="Date"
-            v-model="student.dob"
+            v-model="dob"
             prepend-icon="event"
+            readonly
           ></v-text-field>
           <v-date-picker v-model="student.dob" no-title scrollable actions autosave>
           </v-date-picker>
@@ -161,6 +163,7 @@
           </v-text-field>
       </v-flex>
     </v-layout>
+    <v-progress-linear v-if="loading"  v-bind:indeterminate="true"></v-progress-linear>
     <v-layout row>
       <v-btn  large v-on:click="submit" :disabled="!ready" color="primary" dark>Add</v-btn>
       <v-btn  large v-on:click="cancel" :disabled="!ready" color="primary" dark>Cancel</v-btn>
@@ -174,19 +177,24 @@ export default {
     return {
       hidden: false,
       isActive: true,
-      loading: false,
+      // loading: false,
       snackbar: false,
       message: 'Added',
       ready: true,
-      dobOpen: false
+      dobOpen: false,
+      dob: null
     }
   },
   computed: {
+    loading () {
+      if (this.$store.state.students.loading) { console.log('is loading') }
+      return this.$store.state.students.loading
+    },
     student () {
       if (this.$route.path === '/editStudent') {
         return this.$store.state.students.currentStudent
       } else {
-        return {}
+        return {dob: null}
       }
     },
     cities () {

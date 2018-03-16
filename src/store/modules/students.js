@@ -3,7 +3,8 @@ import Vue from 'vue'
 // import config from '../config'
 const state = {
   studentList: [],
-  currentStudent: {}
+  currentStudent: {},
+  loading: false
 }
 
 var Students = Parse.Object.extend('Students')
@@ -40,20 +41,6 @@ const mutations = {
 }
 
 const actions = {
-  // fillStudents (context) {
-  //   var query = new Parse.Query(Students)
-  //   query.ascending('firstname')
-  //   // console.log('fillStudents fired', context)
-  //   query.find({
-  //     success: function (results) {
-  //       console.log(results)
-  //       context.commit('fillStudents', results)
-  //     },
-  //     error: function (err) {
-  //       console.log('error: ', err)
-  //     }
-  //   })
-  // },
   fillStudents (context) {
     let query = new Parse.Query(Students)
     query.ascending('firstname')
@@ -80,56 +67,23 @@ const actions = {
         console.log('error: ', err)
       }
     })
-
-    // query.find({
-    //   success: function (results) {
-    //     console.log(results)
-    //     context.commit('fillStudents', results)
-    //   },
-    //   error: function (err) {
-    //     console.log('error: ', err)
-    //   }
-    // })
   },
   saveStudent (context, student) {
     var s = new Students()
     // makes sure that student info is in the correct format
     // var student2 = toStudent(student)
+    state.loading = true
+
     s.save(student, {
       success (res) {
         console.log(res)
-      },
-      error (err) {
-        console.log(err)
-      }
-    })
-  },
-  updateStudent (context, student) {
-    var s = new Students()
-    // makes sure that student info is in the correct format
-    var student2 = toStudent(student)
-    s.save(student2, {
-      success (res) {
-        console.log(res)
+        state.loading = false
       },
       error (err) {
         console.log(err)
       }
     })
   }
-}
-
-function toStudent (obj) {
-  // reformats the gender to a boolean and the dob to a date
-  return Object.assign({}, obj)
-  // if (student.gender === 'true') {
-  //   student.gender = true
-  // } else {
-  //   student.gender = false
-  // }
-  // student.dob = new Date(student.dob)
-
-  // return student
 }
 
 export default {

@@ -19,19 +19,19 @@
               <v-list-tile-title>Students</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
-          <v-list-tile @click="$router.push('/studentList')">
+          <v-list-tile @click="$router.push('/accountsDash')">
             <v-list-tile-action>
               <v-icon>settings</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>List Students</v-list-tile-title>
+              <v-list-tile-title>AccountsDash</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
       <v-toolbar app fixed clipped-left>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title>Application</v-toolbar-title>
+        <v-toolbar-title>Encompass</v-toolbar-title>
       </v-toolbar>
       <v-content>
         <v-container fluid fill-height>
